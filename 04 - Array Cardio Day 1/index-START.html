@@ -31,17 +31,43 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteenhundreds = inventors.filter(function(inventor){
+      return (inventor.year > 1499 && inventor.year < 1600);
+    });
+    console.log(fifteenhundreds);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const names = inventors.map(function(inventor){
+      return `${inventor.first} ${inventor.last}`;
+    });
+    console.log(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sorted = inventors.sort(function(a, b){
+      return a.year - b.year; 
+    });
+    console.log(sorted);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    let yearsLived = inventors.reduce(function(accumulator, current, index){
+      const inventor = {
+        name: `${current.first} ${current.last}`,
+        age: current.passed - current.year
+      };
+      accumulator.push(inventor);
+      return accumulator;
+    }, []);
+    console.log(yearsLived);
 
     // 5. Sort the inventors by years lived
+    yearsLived.sort(function(a, b){
+      return b.age - a.age;
+    });
+    console.log(yearsLived);
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -49,10 +75,24 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    people.sort(function(a, b){
+      return a.localeCompare(b);
+    });
+    console.log(people);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    
+    let instances = data.reduce(function(accum, current, index){
+      if(accum[current]){
+        accum[current] += 1;
+      } else {
+        accum[current] = 1;
+      }
+      return accum;
+    }, {});
+    console.log(instances);
 
   </script>
 </body>
