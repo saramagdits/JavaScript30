@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS30 Drum Kit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--KEYS-->
+    <div class='keys'>
+        <div data-key='a' class='key'>
+            <kbd>A</kbd>
+            <span class="sound">Boom</span>
+        </div>
+        <div data-key='s' class='key'>
+            <kbd>S</kbd>
+            <span class="sound">Clap</span>
+        </div>
+        <div data-key='d' class='key'>
+            <kbd>D</kbd>
+            <span class="sound">Hihat</span>
+        </div>
+        <div data-key='f' class='key'>
+            <kbd>F</kbd>
+            <span class="sound">Kick</span>
+        </div>
+        <div data-key='g' class='key'>
+            <kbd>G</kbd>
+            <span class="sound">Openhat</span>
+        </div>
+        <div data-key='h' class='key'>
+            <kbd>H</kbd>
+            <span class="sound">Ride</span>
+        </div>
+        <div data-key='j' class='key'>
+            <kbd>J</kbd>
+            <span class="sound">Snare</span>
+        </div>
+        <div data-key='k' class='key'>
+            <kbd>K</kbd>
+            <span class="sound">Tink</span>
+        </div>
+        <div data-key='l' class='key'>
+            <kbd>L</kbd>
+            <span class="sound">Tom</span>
+        </div>
+    </div>
+<!--AUDIO-->
+    <audio data-key="a" src="sounds/boom.wav"></audio>
+    <audio data-key="s" src="sounds/clap.wav"></audio>
+    <audio data-key="d" src="sounds/hihat.wav"></audio>
+    <audio data-key="f" src="sounds/kick.wav"></audio>
+    <audio data-key="g" src="sounds/openhat.wav"></audio>
+    <audio data-key="h" src="sounds/ride.wav"></audio>
+    <audio data-key="j" src="sounds/snare.wav"></audio>
+    <audio data-key="k" src="sounds/tink.wav"></audio>
+    <audio data-key="l" src="sounds/tom.wav"></audio>
+
+<!--SCRIPT-->
+<script type="text/javascript">
+    let playSound= function(event) {
+        // Selects the audio element associated with the pressed key
+        // ES6 template strings!
+        const audio = document.querySelector(`audio[data-key="${event.key}"]`);
+        //if the key pressed does not match an available audio, end the function
+        if (!audio) return;
+        //reset the audio clip to the beginning
+        audio.currentTime = 0;
+        audio.play();
+        //select the visual key associated with the pressed key
+        const key = document.querySelector(`.key[data-key="${event.key}"]`);
+        //add styling to highlight key
+        key.classList.add('pressed');
+    };
+
+    let removePressed = function(event){
+        //ends function for all other events besides transform
+        if (event.propertyName !== 'transform') return;
+        //returns key styling to baseline
+        this.classList.remove('pressed');
+    };
+    window.addEventListener('keypress', playSound);
+
+    let keys = document.querySelectorAll('.key');
+    keys.forEach((key) => {
+        //if a key is pressed, and its transition has completed, return key styling to baseline
+        key.addEventListener('transitionend', removePressed)
+    });
+
+</script>
+
+</body>
+</html>
