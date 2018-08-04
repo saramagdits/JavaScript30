@@ -1,101 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JS + CSS Clock</title>
+    <meta charset="UTF-8">
+    <title>JS + CSS Clock</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
-
-
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
-        <div class="hand second-hand"></div>
-      </div>
+<div class="clock" id="local">
+    <div class="clock__container">
+        <div class="clock__face">
+            <div class="clock__hand clock__hand--hour"></div>
+            <div class="clock__hand clock__hand--min"></div>
+            <div class="clock__hand clock__hand--second"></div>
+        </div>
     </div>
+    <h2>Your Time</h2>
+</div>
+<div class="clock" id="new-york">
+    <div class="clock__container">
+        <div class="clock__face">
+            <div class="clock__hand clock__hand--hour"></div>
+            <div class="clock__hand clock__hand--min"></div>
+            <div class="clock__hand clock__hand--second"></div>
+        </div>
+    </div>
+    <h2>New York</h2>
+</div>
+<div class="clock" id="london">
+    <div class="clock__container">
+        <div class="clock__face">
+            <div class="clock__hand clock__hand--hour"></div>
+            <div class="clock__hand clock__hand--min"></div>
+            <div class="clock__hand clock__hand--second"></div>
+        </div>
+    </div>
+    <h2>London</h2>
+</div>
+<div class="clock" id="mumbai">
+    <div class="clock__container">
+        <div class="clock__face">
+            <div class="clock__hand clock__hand--hour"></div>
+            <div class="clock__hand clock__hand--min"></div>
+            <div class="clock__hand clock__hand--second"></div>
+        </div>
+    </div>
+    <h2>Mumbai</h2>
+</div>
+<div class="clock" id="tokyo">
+    <div class="clock__container">
+        <div class="clock__face">
+            <div class="clock__hand clock__hand--hour"></div>
+            <div class="clock__hand clock__hand--min"></div>
+            <div class="clock__hand clock__hand--second"></div>
+        </div>
+    </div>
+    <h2>Tokyo</h2>
+</div>
 
-
-  <style>
+<style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size:cover;
-      font-family:'helvetica neue';
-      text-align: center;
-      font-size: 10px;
+        background: #fff url('luo-ping-630729-unsplash.jpg');
+        background-size: cover;
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        font-size: 10px;
+        color: #fff;
     }
 
     body {
-      margin: 0;
-      font-size: 2rem;
-      display:flex;
-      flex:1;
-      min-height: 100vh;
-      align-items: center;
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
     }
 
     .clock {
-      width: 30rem;
-      height: 30rem;
-      border:20px solid white;
-      border-radius:50%;
-      margin:50px auto;
-      position: relative;
-      padding:2rem;
-      box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
+        margin-left: 5rem;
     }
 
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
+    .clock__container {
+        width: 20rem;
+        height: 20rem;
+        border: 15px solid rgba(0, 0, 0, .4);
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+        padding: 2rem;
     }
 
-    .hand {
-      width:50%;
-      height:6px;
-      background:black;
-      position: absolute;
-      top:50%;
-      transform-origin: 100%;
-      transform:rotate(90deg);
-      transition: all 0.05s;
-      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1)
+    .clock__face {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(-3px); /* account for the height of the clock hands */
     }
 
-  </style>
-
-  <script>
-    const secondHand = document.querySelector('.second-hand');
-    const minuteHand = document.querySelector('.min-hand');
-    const hourHand = document.querySelector('.hour-hand');
-
-    const setDate = () => {
-      const now = new Date();
-      const seconds = now.getSeconds();
-      const minutes = now.getMinutes();
-      const hours = now.getHours();
-
-      const secondsDegrees = ((seconds / 60) * 360) + 90;
-      const minutesDegrees = ((minutes / 60) * 360) + 90;
-      const hoursDegrees = ((hours / 12) * 360) + 90;
-
-      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-      minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
-      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
-
-
+    .clock__hand {
+        width: 50%;
+        height: 6px;
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%; /* use the end of the clock hand to rotate about instead of the center */
+        transform: rotate(90deg); /* set starting hand positions at 12 */
+        transition: all 0.05s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1); /* makes the clock tick motion look mechanical */
+        border-radius: 3px;
     }
 
-    setInterval(setDate, 1000);
+    .clock__hand--hour {
+        /* make the hour hand shorter */
+        width: 40%;
+        left: 10%;
+    }
 
-    setDate();
+</style>
+<script>
 
-  </script>
+    //styles the clock to match the current time
+    function setTime(city, offset) {
+        //targets clock hands for the city
+        const secondHand = document.querySelector(`#${city} .clock__hand--second`);
+        const minHand = document.querySelector(`#${city} .clock__hand--min`);
+        const hourHand = document.querySelector(`#${city} .clock__hand--hour`);
+        //create a new current local time object
+        const localTime = new Date();
+        let clockTime = "";
+        if (city === "local") {
+            //the local time does not require UTC timezone adjustment
+            clockTime = new Date();
+        } else {
+            //calculate the base UTC time by leveraging user's timezone offset
+            let utc = localTime.getTime() + (localTime.getTimezoneOffset() * 60000);
+            //set the clock time to be a UTC time with the city's timezone offset
+            clockTime = new Date(utc + (3600000 * offset));
+        }
+        //get seconds, minutes, and hours from the clock time
+        const seconds = clockTime.getSeconds();
+        const minutes = clockTime.getMinutes();
+        const hours = clockTime.getHours();
+        //convert those values into degrees of rotation for the clock hand
+        const secondsDeg = ((seconds / 60) * 360 + 90);
+        const minutesDeg = ((minutes / 60) * 360 + 90);
+        const hoursDeg = ((hours / 12) * 360 + 90);
+        //rotate each clock hand according to the calculated degrees of rotation
+        secondHand.style.transform = `rotate(${secondsDeg}deg)`;
+        minHand.style.transform = `rotate(${minutesDeg}deg)`;
+        hourHand.style.transform = `rotate(${hoursDeg}deg)`;
+    }
+
+    // set the setTime() function to be called every 1s for each particular city, with it's timezone offset
+    setInterval(function () {
+        setTime("local");
+    }, 1000);
+    setInterval(function () {
+        setTime("new-york", -4.0);
+    }, 1000);
+    setInterval(function () {
+        setTime("london", +1.0);
+    }, 1000);
+    setInterval(function () {
+        setTime("mumbai", +5.5);
+    }, 1000);
+    setInterval(function () {
+        setTime("tokyo", +9.0);
+    }, 1000);
+</script>
 </body>
 </html>
