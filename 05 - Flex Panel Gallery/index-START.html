@@ -24,9 +24,15 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background:#6B0F9C;
       box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
       color:white;
@@ -54,6 +60,27 @@
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel > *:first-child {
+      transform: translateY(-100%);
+    }
+    .panel.open-active > *:first-child {
+      transform: translateY(0);
+    }
+    .panel > *:last-child {
+      transform: translateY(100%);
+    }
+    .panel.open-active > *:last-child {
+      transform: translateY(0);
+    }
+    .panel.open {
+      flex: 5;
+      font-size: 2.5rem;
     }
 
     .panel p {
@@ -64,10 +91,6 @@
     }
     .panel p:nth-child(2) {
       font-size: 4em;
-    }
-
-    .panel.open {
-      font-size:40px;
     }
 
   </style>
@@ -102,7 +125,18 @@
   </div>
 
   <script>
+    const panels = document.querySelectorAll('.panel');
+    const toggle = function () {
+        this.classList.toggle("open")
+    };
+    const active = function (event) {
+        if (event.propertyName.includes('flex')) {
+          this.classList.toggle("open-active")
+        }
 
+    };
+    panels.forEach(panel => panel.addEventListener('click', toggle));
+    panels.forEach(panel => panel.addEventListener('transitionend', active));
   </script>
 
 
