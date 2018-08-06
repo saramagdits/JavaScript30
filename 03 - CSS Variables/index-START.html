@@ -18,10 +18,14 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img id="image" src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-
+    :root {
+      --spacing : 3px;
+      --blur: 5px;
+      --base: red;
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -42,9 +46,31 @@
     input {
       width:100px;
     }
+    .hl {
+      color: var(--base);
+    }
+    #image {
+      background-color: var(--base);
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+    }
   </style>
 
   <script>
+    //target the image and h2 span
+    const image = document.querySelector('#image');
+    const span = document.querySelector("h2 span");
+    //target the input values
+    const inputs = document.querySelectorAll('.controls input');
+    //update the image and h2 span with new values
+    const update = function (){
+        console.log(this.value);
+        const suffix = this.dataset.sizing || "";
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    //add event listener to each input
+    inputs.forEach(input => input.addEventListener('change', update));
+    inputs.forEach(input => input.addEventListener('mousemove', update));
   </script>
 
 </body>
