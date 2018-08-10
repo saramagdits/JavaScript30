@@ -18,29 +18,50 @@
     }
 
     // Regular
-
+    console.log('hi!');
     // Interpolated
-
+    console.log('This is some %s text', 'cool');
     // Styled
-
+    console.log('%c Big freaking text', 'font-size: 50px; text-shadow: 10px 10px 0 blue');
     // warning!
-
+    console.warn('oh noooo!'); //gives a warning and a stack trace to where this was called
     // Error :|
-
+    console.error('there was an error!'); //gives an error message and a stack trace
     // Info
-
+    console.info('Mayonnaise has an IQ'); //doesn't work?
     // Testing
-
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
     // clearing
-
+    // console.clear();
     // Viewing DOM Elements
-
+    console.dir(p);
     // Grouping together
-
+    dogs.forEach(dog => {
+        console.groupCollapsed(dog.name);
+        console.groupEnd();
+        console.log(dog.name);
+    });
     // counting
-
+    console.count('Sara');
+    console.count('Sara');
+    console.count('Greg');
+    console.count('Sara');
+    console.count('Sara');
+    console.count('Sara');
+    console.count('Sara');
+    console.count('Sara');
+    console.count('Greg');
     // timing
-
+    console.time('fetching data');
+    fetch('https://api.github.com/users/saramagdits')
+        .then((data) => data.json())
+        .then(data => {
+            console.timeEnd('fetching data');
+            console.log(data);
+        })
+    //table
+    console.table(dogs);
   </script>
 </body>
 </html>
